@@ -1,0 +1,17 @@
+Pseudocode
+
+Algorithm.
+
+1. Take the database file
+2. Convert the database file into a BioPython data class.
+3. Make a new class that is derived from the BioPython class and inherits all its member data but adds transmembrane sequence locations and whether it is a multi or single pass integral membrane protein.
+	A.) Search the class sequence variables and find only areas that are transmembrane domains.
+		1.) Search every 20 amino acid and calculate the total Kyte-Doolittle Hydrophobicity score.
+		2.) if (kd > 0) hydrophilic
+		3.) if (kd < 0) hydrophobic and thus a transmembrane region.
+			a) Keep track of the transmembrane areas with an array, every even index is where the TMD starts and the even index is where it stops in the amino acid sequence.
+			b) single-pass = 0, multi-pass = 1
+
+	B.) Annotate the proteins and list if they are multi- or single-pass integral membrane proteins.
+		1.) Look into the BioPython class SeqFeature (4.3)
+
