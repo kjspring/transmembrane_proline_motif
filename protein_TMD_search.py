@@ -12,7 +12,7 @@ from Bio import Seq
 from Bio.SeqUtils.ProtParam import ProteinAnalysis
 
 # Test data filename
-filename = "/Users/kspring/repositories/transmembrane_proline_motif/test_data.fasta"
+filename = "/Users/kspring/repositories/transmembrane_proline_motif/testData02.fasta"
 
 # Open and parse the sequence data file and index them as a dictionary
 data_dict = SeqIO.index(filename, "fasta")
@@ -39,9 +39,9 @@ kd_index = { 'A': 1.8,'R':-4.5,'N':-3.5,'D':-3.5,'C': 2.5,
 # Convert the amino acid sequence to the Kyte & Doolittle hydrophobicity index scale
 # code is modified from http://www.dalkescientific.com/writings/NBN/plotting.html
 values = []
-for e in record:
-    for residue in e.seq:
-        values.append(kd_index[residue]) # need to find a way to make a list within a list
+#for e in record:
+#    for residue in e.seq:
+#        values.append(kd_index[residue]) # need to find a way to make a list within a list
 
 
 # Sample code
