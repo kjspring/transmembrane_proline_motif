@@ -16,12 +16,13 @@ import re
 
 # Load the data
 
-f_path = abspath("1.016_aTESTDATA.fasta")
+f_path = abspath("1.016_345.fasta")
 
 # Open the data file and save it as a list
 handle = open(f_path, "rU")
 records = list(SeqIO.parse(handle, "fasta", IUPAC.extended_protein))
 handle.close()
+count = len(records)
 
 # Amino Acid Alphabet
 # B = "Asx";  Aspartic acid (R) or Asparagine (N) 
@@ -48,12 +49,64 @@ for e in records:
     if search != None:
         print e
 
+li = []
+for i in range(0,count):
+    search = re.search(regex01, str(records[i].seq))
+    if search != None:
+        print records[i]
+        li.append(records[i])
+    print i
+
+
+# Output
+
 # Search for the palindrome
 
+li2 = []
 regex02 = "G[^P].*?P"
-for e in records:
-    search = re.search(regex02, str(e.seq))
+for i in range(0,count):
+    search = re.search(regex02, str(records[i].seq))
     if search != None:
-        print e
+        print records[i]
+        li2.append(records[i])
+    print i
 
-    
+# combine the lists
+tot_li = [li, li2]
+
+# for each list and
+# for each item in the list;
+# write the item to the file, with a hard return
+f = open('motifData.csv', 'w')
+regex03 = "\\|(.*?)\\|"
+url = "http://www.uniprot.org/uniprot/"
+stringA = '|'
+for list in tot_li:
+    n = 0
+    for item in list:
+        name = re.search(regex03, str(list[n].id))
+        f.write(name.group(1))
+        #print(name.group(1))
+        f.write(',')
+        #print (',')
+        f.write(str(list[n].seq))
+        #print(list[n].seq)
+        f.write(',')
+        #print(',')
+        url2 = url + str(name.group(1))
+        f.write(url2)
+        #print(url2)
+        f.write('\n')
+        #print('\n')
+        n = n + 1
+
+f.close()
+
+
+# For XML data
+
+xml_path = abspath("1.016_a.xml")
+
+handle = open(xml_path, "rU")
+xml_rec = list(SeqIO.parse(handle, "uniprot-xml", IUPAC.extended_protein))
+handle.close()
